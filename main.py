@@ -1,5 +1,5 @@
-from turtle import goto
 import pyvisa
+import time
 import ctypes  # An included library with Python install.  
 
 MB = ctypes.windll.user32.MessageBoxW
@@ -12,6 +12,7 @@ R = MB(0, "Você deseja confirgurar o equipamento?", "Configuração", 1)
 
 if R == 1:
     MB(0, "Configurando","Setting", 0)
+    time.sleep(10)
 else:
     MB(0, "FIM","Setting", 0)
 
@@ -27,4 +28,4 @@ inst.write("INIT:CONT ON")
 
 inst.write("TPIL:AVER:COUN 10")
 
-print("URRA")
+print("URRA!")
