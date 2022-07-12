@@ -33,6 +33,6 @@ else:
 R = MB(0, "Do you want to normalize the equipment?", "Normalize", 4)
 
 if R == 6:
-        inst.write("CALC:TPIL:NORM")
         MB(0, "Connect the type N cable! (OUTPUT to INPUT)","Normalize", 0)
+        inst.write("CALC:TPIL:NORM")
         time.sleep(30)
