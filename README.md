@@ -5,8 +5,8 @@ Automation to measure return loss and attenuation with Agilent CSA N1996A Analyz
 
 # Requirements
 
-Python (tested with 3.9+) 
-PyVISA 1.11+
+Python version 3.9+
+PyVISA version 1.11+
 
 # Installation
 
