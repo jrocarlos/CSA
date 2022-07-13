@@ -1,15 +1,19 @@
 import pyvisa
 import time
-import ctypes  # An included library with Python install.  
+import ctypes  
 
 MB = ctypes.windll.user32.MessageBoxW
 #Open comunication
 rm = pyvisa.ResourceManager()
 inst = rm.open_resource('TCPIP::10.1.14.123')
-print(inst.query("*IDN?"))
-
+#verify the communication
+idn = inst.query("*IDN?")
+if idn.find('N1996A'):
+    MB(0,"Equipment connected!", "Connection",0)
+else:
+    MB(0, "Equipment not found!","Connection", 0)
+#Configure the equipment
 R = MB(0, "Do you want to configure the equipment?", "Configure", 4)
-
 if R == 6:
     MB(0, "Setting","Setting", 0)
     #Config
@@ -29,10 +33,11 @@ if R == 6:
 else:
     MB(0, "END","Configure", 0)
 
-
+#Nomarlize the equpment
 R = MB(0, "Do you want to normalize the equipment?", "Normalize", 4)
 
 if R == 6:
         MB(0, "Connect the type N cable! (OUTPUT to INPUT)","Normalize", 0)
         inst.write("CALC:TPIL:NORM")
         time.sleep(30)
+
