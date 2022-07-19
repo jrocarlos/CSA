@@ -1,6 +1,7 @@
 import pyvisa
 import time
 import ctypes 
+import pandas as pd
 
 MB = ctypes.windll.user32.MessageBoxW
 
@@ -58,4 +59,8 @@ if R == 6:
         MB(0, "Connect the equipment under test! (OUTPUT to INPUT)","Measuring", 0)
         M = inst.query(":CALC:DATA?")
         M = M.split(",")
-        print(float(M[1]))
+        M = pd.DataFrame(M)
+        M.columns = ['DATA']
+        #M = M.drop(0)
+        #print(float(M[1]))
+        print(M)
