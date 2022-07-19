@@ -1,13 +1,15 @@
 import pyvisa
 import time
-import ctypes  
+import ctypes 
 
 MB = ctypes.windll.user32.MessageBoxW
 
 #Open comunication
 rm = pyvisa.ResourceManager()
 inst = rm.open_resource('TCPIP::10.1.14.123')
-
+if inst == "":
+    MB(0,"Equipment disconnected! Try again!", "Connection",0)
+    
 #verify the communication
 idn = inst.query("*IDN?")
 if idn.find('N1996A'):
@@ -54,5 +56,6 @@ R = MB(0, "Do you want to measuring now?", "Measuring", 4)
 
 if R == 6:
         MB(0, "Connect the equipment under test! (OUTPUT to INPUT)","Measuring", 0)
-        M = inst.write(":CALC:DATA?")
-        print(M)
+        M = inst.query(":CALC:DATA?")
+        M = M.split(",")
+        print(float(M[1]))
